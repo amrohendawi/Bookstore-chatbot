@@ -1,0 +1,366 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a Bookstore server for the Project AWT\n"
+  version: "1.0.0"
+  title: "AWT Bookstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+schemes:
+- "http"
+paths:
+  /books:
+    get:
+      tags:
+      - "Books"
+      summary: "Find books"
+      description: "Muliple phrases can be provided with comma separated strings.\
+        \ Use\\ \\ phrase1, phrase2, phrase3 for testing."
+      operationId: "findBooks"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "title"
+        in: "query"
+        description: "Title of the book"
+        required: false
+        type: "string"
+      - name: "price"
+        in: "query"
+        description: "Price of the book ( >e, <e, e, e1-e2)"
+        required: false
+        type: "string"
+      - name: "genres"
+        in: "query"
+        description: "Genre of the book"
+        required: false
+        type: "string"
+      - name: "isbn"
+        in: "query"
+        description: "ISBN of the book"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "language"
+        in: "query"
+        description: "Book language"
+        required: false
+        type: "string"
+      - name: "author"
+        in: "query"
+        description: "Book author"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "limit in paging"
+        required: false
+        type: "integer"
+      - name: "offset"
+        in: "query"
+        description: "offset in paging"
+        required: false
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/BooksList"
+        "400":
+          description: "Invalid phrase value"
+      x-swagger-router-controller: "Books"
+  /orders:
+    get:
+      tags:
+      - "Orders"
+      summary: "Find orders"
+      description: "Returns a map of status codes to quantities"
+      operationId: "getOrders"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "orders by id"
+        required: false
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "orders by email"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        description: "orders by name"
+        required: false
+        type: "string"
+      - name: "isbn"
+        in: "query"
+        description: "orders by book ISBN"
+        required: false
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderList"
+        "400":
+          description: "Invalid phrase value"
+      x-swagger-router-controller: "Orders"
+    post:
+      tags:
+      - "Orders"
+      summary: "Place an order for a book\""
+      operationId: "placeOrder"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name of the order's placer"
+        required: true
+        type: "string"
+      - name: "street"
+        in: "query"
+        description: "street of the order's placer"
+        required: true
+        type: "string"
+      - name: "plz"
+        in: "query"
+        description: "plz of the order's placer"
+        required: true
+        type: "string"
+      - name: "city"
+        in: "query"
+        description: "city of the order's placer"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "orders by email"
+        required: true
+        type: "string"
+      - name: "isbn"
+        in: "query"
+        description: "orders by book ISBN"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderList"
+        "400":
+          description: "Invalid Order"
+      x-swagger-router-controller: "Orders"
+    delete:
+      tags:
+      - "Orders"
+      summary: "Delete purchase order by ID and email"
+      description: "For valid response try integer IDs with positive integer value.\\\
+        \ \\ Negative or non-integer values will generate API errors"
+      operationId: "deleteOrder"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "email"
+        in: "query"
+        description: "orders by email"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        description: "orders by book ISBN"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: "Invalid Order"
+      x-swagger-router-controller: "Orders"
+definitions:
+  Order:
+    type: "object"
+    required:
+    - "city"
+    - "email"
+    - "isbn"
+    - "name"
+    - "plz"
+    - "state"
+    - "street"
+    - "id"
+    properties:
+      name:
+        type: "string"
+      street:
+        type: "string"
+      plz:
+        type: "string"
+      city:
+        type: "string"
+      isbn:
+        type: "integer"
+        format: "int64"
+      email:
+        type: "string"
+      id:
+        type: "string"
+      state:
+        type: "string"
+    xml:
+      name: "Order"
+    example:
+      id: 13
+      name: "Max Mustermann"
+      street: "Berliner Straße 14"
+      plz: 13333
+      city: "Berlin"
+      isbn: 123456
+      email: "email@example.com"
+      state: "in Bearbeitung"
+  OrderList:
+    type: "object"
+    properties:
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Order"
+      count:
+        type: "number"
+        format: "int64"
+    xml:
+      name: "OrderList"
+    example:
+      count: 999
+      list:
+      - id: 13
+        name: "Max Mustermann"
+        street: "Berliner Straße 14"
+        plz: 13333
+        city: "Berlin"
+        isbn: 123456
+        email: "email@example.com"
+        state: "in Bearbeitung"
+  Book:
+    type: "object"
+    required:
+    - "author"
+    - "available"
+    - "coverImg"
+    - "description"
+    - "genres"
+    - "isbn"
+    - "language"
+    - "price"
+    - "publishDate"
+    - "rating"
+    - "title"
+    properties:
+      title:
+        type: "string"
+        example: "dummy book title"
+      author:
+        type: "string"
+        example: "Max Mustermann"
+      rating:
+        type: "number"
+        format: "float64"
+      description:
+        type: "string"
+        example: "dummy description"
+      language:
+        type: "string"
+        example: "English"
+      isbn:
+        type: "integer"
+        format: "int64"
+      genres:
+        type: "string"
+        example: "action"
+      publishDate:
+        type: "string"
+        format: "date-time"
+      ratingsByStars:
+        type: "array"
+        items:
+          type: "integer"
+          example: ""
+      coverImg:
+        type: "string"
+      available:
+        type: "integer"
+        format: "int64"
+        description: "number of copies available"
+        default: 1
+      price:
+        type: "number"
+        format: "float64"
+    xml:
+      name: "Book"
+    example:
+      title: "War and Peace"
+      author: "Tolstoy"
+      rating: 3.529999999999999804600747665972448885440826416015625
+      description: "War and peace book by Tolstoy"
+      language: "English"
+      isbn: 948231
+      genres: "Novel"
+      publishDate: "01-01-1950"
+      ratingByStars:
+      - 123
+      - 323
+      - 665
+      - 434
+      - 112
+      coverImg: "http://www.coverImg.com/12312332"
+      available: 5
+      price: 14.9900000000000002131628207280300557613372802734375
+  BooksList:
+    type: "object"
+    properties:
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Book"
+      count:
+        type: "number"
+        format: "int64"
+    xml:
+      name: "BooksList"
+    example:
+      count: 999
+      list:
+      - title: "War and Peace"
+        author: "Tolstoy"
+        rating: 3.529999999999999804600747665972448885440826416015625
+        description: "War and peace book by Tolstoy"
+        language: "English"
+        isbn: 948231
+        genres: "Novel"
+        publishDate: "01-01-1950"
+        ratingByStars:
+        - 123
+        - 323
+        - 665
+        - 434
+        - 112
+        coverImg: "http://www.coverImg.com/12312332"
+        available: 5
+        price: 14.9900000000000002131628207280300557613372802734375
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

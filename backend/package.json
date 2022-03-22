@@ -1,0 +1,23 @@
+{
+  "name": "awt-bookstore",
+  "version": "1.0.0",
+  "description": "This is a Bookstore server for the Project AWT ",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "nodemon index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "csvtojson": "^2.0.10",
+    "js-yaml": "^3.3.0",
+    "mongoose": "^6.1.4",
+    "nodemon": "^2.0.15",
+    "swagger-tools": "^0.10.4"
+  }
+}
