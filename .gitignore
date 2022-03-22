@@ -1,0 +1,5 @@
+**/node_modules
+database
+.DS_Store
+/dist
+**/__pycache
