@@ -1,0 +1,81 @@
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - 8080:8080
+    image: bookstore-frontend
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run serve
+    depends_on:
+      - backend
+      - nginx
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    image: bookstore-backend
+    volumes:
+      - ./backend:/app
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run start
+    depends_on:
+      - db
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - 8001:8001
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+  db:
+    container_name: database
+    image: mongo:4.0
+    restart: always
+    expose:
+    - 27017
+    volumes:
+      - ./database:/data/db
+  rasa:
+    container_name: rasa-chatbot
+    build: 
+      context: ./rasa
+    image: rasa-spacy
+    ports:
+      - 5005:5005
+    volumes:
+      - ./rasa:/app
+    command:
+      - run 
+      - -m
+      - models
+      - --cors
+      - "*"
+      - --enable-api
+      
+  rasa_actions:
+    container_name: rasa-actions
+    build: 
+      context: ./rasa
+    image: rasa-spacy
+    ports:
+      - 5055:5055
+    volumes:
+      - ./rasa:/app
+    command:
+      - run 
+      - actions
