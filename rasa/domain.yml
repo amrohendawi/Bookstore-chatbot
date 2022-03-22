@@ -1,0 +1,258 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - order
+  - give_time
+  - filter 
+  - order_chosen_book
+  - fallback
+  - give_order_number
+  - ask_about_delivery
+  - ask_for_order_number
+  - price
+  - genre
+  - language
+  - author
+  - all_filters_overview
+  - single_filters
+  - ask_price
+  - ask_author
+  - ask_genre
+  - ask_language
+  - confirm_filtering
+  - ask_book
+  - fill_form
+  - ask_about_order
+  - ack_book_title
+  - bot_challenge
+  - out_of_scope
+
+actions:
+  - action_show_time
+  - action_order
+  - action_filter
+  - validate_ordering_form
+  - action_carousels
+  - action_order_chosen_book
+  - action_extract_filters
+  - action_get_order_information
+
+entities:
+ - DATE
+ - GPE
+ - PERSON
+ - WORK_OF_ART
+ - GENRE
+ - PRICE
+ 
+responses:
+  utter_greet:
+  - text: 'Willkommen im E-Book store!'
+  - text: 'Herzlich willkommen im E-Book store.'
+  - text: 'Guten Tag, schön dass Sie unseren E-Book store besuchen!'
+  
+  utter_offer_overview:
+    - text: Bitte wählen Sie eine der folgenden Optionen
+      buttons:
+        - title: Eine Frage zu Ihrer Bestellung stellen
+          payload: /ask_for_order_number
+        - title: Ein Buch bestellen
+          payload: /fill_form
+        - title: Bücher filtern
+          payload: /all_filters_overview
+
+  utter_ask_for_more_filter_criteria:
+    - text: 'Haben Sie weitere Filterkriterien? '
+      buttons:
+        - title: Ja
+          payload: /single_filters
+        - title: Nein
+          payload: /confirm_filtering
+
+  utter_confirm_filtering:
+    - text: Die Bücher werden nun anhand Ihrer Kriterien gefiltert
+
+  utter_single_filters:
+    - text: Bitte wählen sie einen Filter den Sie hinzufügen möchten
+      buttons:
+        - title: Preis
+          payload: /ask_price
+        - title: Genre
+          payload: /ask_genre
+        - title: Sprache
+          payload: /ask_language
+        - title: Autor
+          payload: /ask_author
+
+  utter_ask_price:
+    - text: Bitte geben Sie Ihre Preiskriterien an.
+
+  utter_ask_genre:
+    - text: 'Bitte geben Sie das Genre an nachdem Sie suchen möchten, zum Beispiel "Roman".'
+ 
+  utter_ask_language:
+    - text: 'Bitte geben Sie die gewünschte Sprache an, zum Beispiel "Französisch".'
+  
+  utter_ask_author:
+    - text: 'Bitte geben Sie den Autor an nach dem Sie suchen, zum Beispiel "Astrid Lindgren".'
+
+  utter_all_filters_overview:
+    - text: 'Sie können die Bücher nach Autor, Preis, Genre und Sprache filtern. Schreiben Sie dafür zum Beispiel "Romane zwischen 10€ und 30€"'
+    - text: 'Sie können die Bücher nach Autor, Preis, Genre und Sprache filtern. Schreiben Sie dafür zum Beispiel "Fantasy Bücher unter 15€"'   
+  
+  utter_assitance:
+  - text: "Wie kann ich Ihnen weiterhelfen?"
+
+  utter_give_order_status:
+    - text: 'Der Bestellstatus dieser Bestellung ist "{order_status}"'
+  
+  utter_info_about_delivery_time:
+    - text: 'Die Lieferzeit innerhalb Deutschlands beträgt 1-3 Tage.'
+
+  utter_offer_further_assistance:
+  - text: "Kann ich Ihnen sonst noch weiterhelfen?"
+
+  utter_fill_form:
+  - text: "Dafür bräuchte ich folgende Information von Ihnen:"
+
+  utter_ack_book_title:
+  - text: "Okay. Sie möchten das Buch {book} ausleihen"
+
+  utter_ask_book:
+  - text: "Bitte geben Sie den Titel des Buchs an das Sie bestellen möchten."
+
+  utter_ask_person:
+  - text: "Bitte geben Sie Ihren Vor- und Nachnamen an."
+
+  utter_ask_user_email:
+  - text: "Bitte geben Sie ihre E-mail Adresse an."
+
+  utter_ask_user_street:
+  - text: "Bitte geben Sie Ihren Straßennamen mit Hausnummer an."
+
+  utter_ask_user_plz:
+  - text: "Bitte geben Sie Ihre PLZ an."
+
+  utter_ask_user_city:
+  - text: "Bitte geben Sie ihre Stadt an."
+
+  utter_slots_values:
+  - text: "Sie haben die folgenden Informationen angegeben:\n
+            - Buch: {book}\n
+            - Name: {person}\n
+            - Straße und Hausnummer: {user_street}\n
+            - Stadt: {user_city}\n"
+
+  utter_filter_entities:
+  - text: "Okay, ich habe die folgenden Filterkriterien erkannt:\n
+            - Autor: {author}\n
+            - Preis: {price}\n
+            - Genre: {genre}\n
+            - Sprache: {language}\n"
+  
+  utter_confirmation:
+  - text: "Ist das korrekt?"
+  
+  utter_apologize: 
+  - text: "Entschuldigen Sie bitte."
+
+  utter_did_that_help:
+  - text: "Hat Ihnen das weitergeholfen?"
+
+  utter_happy:
+  - text: "Es freut mich dass ich Ihnen helfen konnte!"
+
+  utter_goodbye:
+  - text: "Auf Wiedersehen!"
+  - text: "Bis bald!"
+
+  utter_confirm_order:
+  - text: "Ihre Bestellung von \"{book}\" ist auf dem Weg nach {user_city}.\nDie Bestellnummer lautet {order_number} "
+
+  utter_ausleihen:
+  - text: "{title} wird gerne für Sie bestellt"
+
+  utter_ask_for_order_number:
+    - text: Bitte geben Sie Ihre Bestellnummer an.
+  
+  utter_i_am_a_bot:
+    - text: Ja, ich bin ein chatbot :)
+    - text: Ich bin ein chatbot und hoffe ich kann Ihnen weiterhelfen!
+
+  utter_fallback:
+    - text: 'Tut mir leid, das habe ich nicht verstanden'
+  
+  utter_out_of_scope:
+    - text: "Tut mir sehr leid, diese Anfrage kann ich leider nicht bearbeiten. Aber wenn Sie ein Buch bestellen möchten sind Sie hier genau richtig!"
+
+forms: 
+  ordering_form:
+    required_slots: 
+      book: 
+      - type: from_text
+      user_email:
+      - type: from_text
+      person:
+      - type: from_text
+      user_street: 
+      - type: from_text
+      user_plz:
+      - type: from_text
+      user_city: 
+      - type: from_text
+  
+  language_form:
+    required_slots:
+      language:
+        - type: from_text
+
+  genre_form:
+    required_slots:
+      genre:
+        - type: from_text
+
+  price_form:
+    required_slots:
+      price:
+        - type: from_text
+
+  author_form:
+    required_slots:
+      author:
+        - type: from_text
+
+slots:
+  book:
+    type: text
+  person:
+    type: text
+  user_street:
+    type: text
+  user_plz: 
+    type: text
+  user_city:
+    type: text
+  price:
+    type: text
+  genre:
+    type: text
+  order_number:
+    type: text
+  user_email:
+    type: text
+  language:
+    type: text
+  author:
+    type: text
+  order_status:
+    type: text
+
+session_config:
+  session_expiration_time: 60 # value in minutes
+  carry_over_slots_to_new_session: false

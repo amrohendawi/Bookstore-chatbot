@@ -1,0 +1,23 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: confirm order
+  condition:
+    - slot_was_set:
+      - book: true
+  steps: 
+    - intent: affirm
+    - action: action_order
+
+- rule: out-of-scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+    - action: utter_offer_overview
+

@@ -1,0 +1,186 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - guten Morgen
+    - guten Abend
+    - Guten Tag
+    - Hallo 
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - Auf Wiedersehen
+    - Tschüss
+    - Gute Nacht
+    - Bis dann
+    - cu
+    - Bis zum nächsten mal
+    - Bis demnächst
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - Ja
+    - Das ist richtig
+    - okay
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - akzeptiere
+    - cool
+    - genau
+    - großartig
+    - grossartig
+    - gut
+    - ok
+    - ok gut
+    - richtig
+    - hört sich gut an
+
+- intent: order_chosen_book
+  examples: |
+    - Ich möchte gerne das Buch "Flowers for Algernon" ausleihen
+    - Jetzt das gewählte Buch bestellen
+    - Dann möchte ich nun gerne das gewählte Buch bestellen.
+
+- intent: order
+  examples: |
+    - Ich möchte gerne ein Buch bestellen
+    - Jetzt bestellen 
+    - bestellen 
+    - Dann möchte ich nun gerne bestellen.
+
+- intent: filter
+  examples: |
+    - filtern
+    - Nur folgende Bücher 
+    - Ich suche Kinderbücher unter 15 Euro
+    - Bücher unter 30€
+    - Welche Krimis gibt es von Martin Meyer unter 10€?
+    - Welche Horrorbücher von Stephen King gibt es unter 20€?
+    - Romane ab 10€
+    - Bitte Bücher nach Preis 5-15 Euro filtern.
+    - Ab 3€
+    - Kinderbücher von Michael Ende
+    - Romane von Nikolaus Grefe
+    - Wilhelm Grimm Kinderbücher unter 25€
+    - Gedichtbände Preis zwischen fünf und 50€
+    - Martin Sauer Bücher ab zehn euro
+    - Wie viele Romane unter 20€ gibt es?
+    - Krimi unter 10€
+    - Nur Romane
+    - Nur neue Bücher
+    - Filtern nach Preis
+
+- intent: ask_about_order
+  examples: |
+    - Es geht um die Bestellung vom 4.7.2021.
+    - Ich habe gestern ein Buch bestellt, wann kommt es an?
+    - Meine Bestellung vom 7. November ist fehlerhaft
+    - Wo kann ich meine Bestellung vom letzten Monat ansehen?
+    - Kann ich meine Bestellung von Freitag noch stornieren?
+    - Warum wird mir bei meiner Bestellung vom 3.8. kein Status angezeigt?
+
+- intent: deny
+  examples: |
+    - Nein
+    - no
+    - n
+    - absolut nicht
+    - ich lehne ab
+    - ich glaube nicht
+    - nein danke
+    - auf keinen fall
+    - nicht wirklich
+
+- intent: mood_great
+  examples: |
+    - perfekt
+    - super
+    - vielen Dank
+    - Dankeschön
+    - Danke
+    - wie schön
+    - sehr gut
+    - gut 
+    - wonderful
+    - Vielen Dank, das ist genau was ich gesucht habe.
+    - Vielen Dank für die Information!
+    - ausgezeichnet
+    - genial
+
+- intent: mood_unhappy
+  examples: |
+    - Das ist schlecht
+    - schlecht
+    - Das ist falsch
+    - falsch
+    - Das möchte ich nicht
+    - Das ist nicht das korrekte Buch
+    - Das ist mir zu teuer
+
+- intent: ask_about_delivery
+  examples: |
+    - Wird die Bestellung am Freitag in Berlin sein?
+    - Wird die Bestellung übermorgen in Mainz sein?
+    - Wird diese Bestellung am Montag bereits in Hannover ankommen? 
+
+- intent: give_order_number
+  examples: |
+      - M16EJ
+      - UV5BF
+      - 5YU7K
+      - 7JCBZ
+      - KTRQG
+      - XA1QG
+
+- intent: bot_challenge
+  examples: |
+      - Bist Du ein bot? 
+      - Bist Du ein chatbot? 
+      - Sind Sie ein echter Mensch? 
+      - Sind Sie eine AI? 
+      - Sind Sie ein Mensch oder ein Bot?
+      - Spreche ich mit einem chatbot?
+
+- intent: out_of_scope
+  examples: |
+    - Ich möchte Essen bestellen
+    - Was ist 2+2?
+    - Wie ist das Wetter heute?
+    - Welche französischen Restaurants gibt es in der Nähe? 
+    - Warum ist der Winter so lang
+    - Welche Zugverbindungen gibt es von Berlin nach München
+    - jkashdkjasd98475jkshdjfs
+    - Wie kann ich mich für den Newsletter anmelden? 
+    - Ich möchte ein cooles TShirt bestellen
+    - Wo gibt es das beste Essen in Hamburg
+    - Was ist besser - Hamburger oder Pasta?
+    - Könnten Sie bitte etwas für mich übersetzen? 
+    - Bitte spiele einen Song von Madonna
+    - Welche Filme kannst Du empfehlen?
+    - Ich möchte bitte die neueste Folge "Mandalorian" schauen
+    - Ich suche Übungsaufgaben für die Klausur

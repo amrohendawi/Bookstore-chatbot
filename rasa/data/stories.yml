@@ -1,0 +1,1958 @@
+version: "2.0"
+
+stories:
+
+  - story: add language filter
+    steps: 
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+  
+  - story: add price filter
+    steps:
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: add genre filter
+    steps:
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+  
+  - story: add author filter
+    steps: 
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: confirm filtering
+    steps:
+      - intent: confirm_filtering
+      - action: action_filter
+      - intent: ack_book_title
+      - action: utter_fill_form
+      - action: ordering_form
+      - active_loop: ordering_form
+      - slot_was_set:
+        - book: "Die kleine Raupe Nimmersatt"
+      - slot_was_set:
+        - user_email: nike@gmx.com
+      - slot_was_set:
+        - person: Nike Entenmann
+      - slot_was_set:
+        - user_street: Langestraße 29
+      - slot_was_set:
+        - user_plz: 10115
+      - slot_was_set:
+        - user_city: Berlin
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_slots_values
+      - action: utter_confirmation
+      - intent: affirm
+      - action: action_order
+
+  - story: filter books
+    steps: 
+    - intent: filter
+    - action: action_filter
+
+  - story: order book
+    steps: 
+    - intent: order
+    - action: utter_fill_form
+    - action: ordering_form
+    - active_loop: ordering_form
+    - slot_was_set:
+      - book: "Die kleine Raupe Nimmersatt"
+    - slot_was_set:
+      - user_email: nike@gmx.com
+    - slot_was_set:
+      - person: Nike Entenmann
+    - slot_was_set:
+      - user_street: Langestraße 29
+    - slot_was_set:
+      - user_plz: 10115
+    - slot_was_set:
+      - user_city: Berlin
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_slots_values
+    - action: utter_confirmation
+    - intent: affirm
+    - action: action_order
+
+  - story: select order book
+    steps:
+    - intent: fill_form
+    - action: utter_fill_form
+    - action: ordering_form
+    - active_loop: ordering_form
+    - slot_was_set:
+      - book: "Die kleine Raupe Nimmersatt"
+    - slot_was_set:
+      - user_email: nike@gmx.com
+    - slot_was_set:
+      - person: Nike Entenmann
+    - slot_was_set:
+      - user_street: Langestraße 29
+    - slot_was_set:
+      - user_plz: 10115
+    - slot_was_set:
+      - user_city: Berlin
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_slots_values
+    - action: utter_confirmation
+    - intent: affirm
+    - action: action_order
+
+
+  - story: order chosen book
+    steps:
+    - intent: order_chosen_book
+    - action: utter_ack_book_title
+    - action: action_order_chosen_book
+
+
+  - story: happy path 1
+    steps:
+    - intent: mood_great
+    - action: utter_happy
+    - action: utter_offer_further_assistance
+    - intent: deny
+    - action: utter_goodbye
+
+  - story: happy path 2
+    steps: 
+    - intent: mood_great
+    - action: utter_happy
+    - action: utter_offer_further_assistance
+    - intent: affirm
+    - action: utter_offer_overview
+
+
+  - story: unhappy path 1
+    steps:
+    - intent: mood_unhappy
+    - action: utter_apologize
+    - intent: affirm
+    - action: utter_offer_overview
+
+  - story: unhappy path 2
+    steps:
+    - intent: mood_unhappy
+    - action: utter_apologize
+    - intent: deny
+    - action: utter_goodbye
+
+  - story: greet + ask about order + ask about delivery
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: greet + ask about order + ask about delivery + affirm
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: greet + ask about order
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: greet + ask about order + affirm
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: deny
+      - action: utter_goodbye
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + single filter
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + single filter
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add genre + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add genre + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add genre + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add language + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add language + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add language + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add author + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add author + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add author + add price
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add price + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add price + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add price + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add genre + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add genre + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add genre + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add author + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add author + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add author + add language
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add price + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add price + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add price + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add language + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add language + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add language + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add author + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add author + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add author + add genre
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add price + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add price + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add price + add author 
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add genre + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add genre + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add genre + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add language + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add language + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      
+  - story: greet + filter books + ask for more search criteria + filter options + add language + add author
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_author
+      - action: author_form
+      - active_loop: author_form
+      - slot_was_set:
+        - author: Stephen King
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add price  + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add price  + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_price
+      - action: price_form
+      - active_loop: price_form
+      - slot_was_set:
+        - price: 5€
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+      
+  - story: greet + filter books + ask for more search criteria + filter options
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add genre   + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add genre   + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_genre
+      - action: genre_form
+      - active_loop: genre_form
+      - slot_was_set:
+        - genre: Roman
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options + add language   + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options + add language   + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+      - intent: ask_language
+      - action: language_form
+      - active_loop: language_form
+      - slot_was_set:
+        - language: Französisch
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_ask_for_more_filter_criteria
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + filter options 
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + filter options
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+      - intent: single_filters
+      - action: utter_single_filters
+
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+
+
+  - story: greet + ask about order + affirm + filter books + ask for more search criteria + ack book title and start ordering form
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+
+      
+  - story: greet + filter books + ask for more search criteria 
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+      - action: utter_ask_for_more_filter_criteria
+
+  - story: greet + ask about order + ask about delivery + affirm + filter books 
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: ask_about_delivery
+      - action: utter_info_about_delivery_time
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+
+  - story: greet + ask about order + affirm + filter books
+    steps:
+      - action: utter_greet
+      - action: utter_offer_overview
+      - intent: ask_for_order_number
+      - action: utter_ask_for_order_number
+      - intent: give_order_number
+      - action: action_get_order_information
+      - action: utter_give_order_status
+      - intent: mood_great
+      - action: utter_offer_further_assistance
+      - intent: affirm
+      - action: utter_offer_overview
+      - intent: all_filters_overview
+      - action: utter_all_filters_overview
+      - intent: filter
+      - action: action_extract_filters
+
+  - story: bot challenge
+    steps: 
+      - intent: bot_challenge
+      - action: utter_i_am_a_bot
+  

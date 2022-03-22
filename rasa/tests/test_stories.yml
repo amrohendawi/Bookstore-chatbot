@@ -1,0 +1,221 @@
+#### This file contains tests to evaluate that your bot behaves as expected.
+#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+
+stories:
+
+- story: happy user doesn't want to get further assistance
+  steps:
+  - user: |
+      Vielen Dank für die Übersicht!  
+    intent: mood_great
+  - action: utter_happy
+  - action: utter_offer_further_assistance
+  - user: |
+      Nein danke.
+    intent: deny
+  - action: utter_goodbye
+
+- story: user unhappy 
+  steps:
+  - user: |
+      Das ist das falsche Buch
+    intent: mood_unhappy
+  - action: utter_apologize
+
+- story: say goodbye
+  steps:
+  - user: |
+      Danke und auf Wiedersehen!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: bot challenge
+  steps:
+  - user: |
+      Hallo, sind Sie ein chatbot?
+    intent: bot_challenge
+  - action: utter_i_am_a_bot
+
+- story: greet + ask about order + ask about delivery
+  steps:
+    - user: |
+        Guten Tag!
+      intent: greet
+    - action: utter_greet
+    - action: utter_offer_overview
+    - intent: ask_for_order_number
+    - action: utter_ask_for_order_number
+    - user: |
+        ATZQW
+      intent: give_order_number
+    - action: action_get_order_information
+    - action: utter_give_order_status
+    - user: |
+        Wird diese Bestellung denn dann am Montag in München ankommen?
+      intent: ask_about_delivery
+    - action: utter_info_about_delivery_time
+    - user: |
+        Perfekt, vielen Dank!
+      intent: mood_great
+    - action: utter_offer_further_assistance
+    - user: |
+        Nein danke.
+      intent: deny
+    - action: utter_goodbye
+
+- story: greet + filter books + ask for more search criteria 
+  steps:
+    - action: utter_greet
+    - action: utter_offer_overview
+    - intent: all_filters_overview
+    - action: utter_all_filters_overview
+    - user: |
+        Ich suche [Fantasy]{"entity": "GENRE"} Bücher unter [15€]{"entity": "PRICE"}
+      intent: filter
+    - action: action_extract_filters
+    - action: utter_ask_for_more_filter_criteria
+
+- story: greet + ask about order + affirm + filter books + ask for more search criteria
+  steps:
+    - action: utter_greet
+    - action: utter_offer_overview
+    - intent: ask_for_order_number
+    - action: utter_ask_for_order_number
+    - user: | 
+        3JCBC
+      intent: give_order_number
+    - action: action_get_order_information
+    - action: utter_give_order_status
+    - user: |
+        Das ist super!
+      intent: mood_great
+    - action: utter_offer_further_assistance
+    - user: |
+        Ja bitte.
+      intent: affirm
+    - action: utter_offer_overview
+    - intent: all_filters_overview
+    - action: utter_all_filters_overview
+    - user: |
+        [Romane]{"entity": "GENRE"} zwischen [10€]{"entity": "PRICE"} und [30€]{"entity": "PRICE"} 
+      intent: filter
+    - action: action_extract_filters
+    - action: utter_ask_for_more_filter_criteria
+
+- story: greet + filter books + ask for more search criteria + filter options + add genre + add language
+  steps:
+    - action: utter_greet
+    - action: utter_offer_overview
+    - intent: all_filters_overview
+    - action: utter_all_filters_overview
+    - user: |
+        Welche Bücher gibt es ab [10€]{"entity": "PRICE"}?
+      intent: filter
+    - action: action_extract_filters
+    - action: utter_ask_for_more_filter_criteria
+    - intent: single_filters
+    - action: utter_single_filters
+    - intent: ask_genre
+    - action: genre_form
+    - active_loop: genre_form
+    - slot_was_set:
+      - genre: Horror
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_ask_for_more_filter_criteria
+    - intent: single_filters
+    - action: utter_single_filters
+    - intent: ask_language
+    - action: language_form
+    - active_loop: language_form
+    - slot_was_set:
+      - language: Norwegisch
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_ask_for_more_filter_criteria
+
+- story: greet + ask about order + ask about delivery + affirm + filter books + ask for more search criteria + confirm filtering + acknowlege book title + start ordering form
+  steps:
+    - action: utter_greet
+    - action: utter_offer_overview
+    - intent: ask_for_order_number
+    - action: utter_ask_for_order_number
+    - user: |
+        M16EJ
+      intent: give_order_number
+    - action: action_get_order_information
+    - action: utter_give_order_status
+    - user: |
+        Wird diese Bestellung am Dienstag in Köln sein?
+      intent: ask_about_delivery
+    - action: utter_info_about_delivery_time
+    - user: |
+        Vielen Dank für die Info. 
+      intent: mood_great
+    - action: utter_offer_further_assistance
+    - user: |
+        Ja
+      intent: affirm
+    - action: utter_offer_overview
+    - intent: all_filters_overview
+    - action: utter_all_filters_overview
+    - user: |
+        Psychologie Bücher unter 25 Euro
+      intent: filter
+    - action: action_extract_filters
+    - action: utter_ask_for_more_filter_criteria
+    - intent: confirm_filtering
+    - action: action_filter
+    - intent: ack_book_title
+    - action: utter_fill_form
+    - action: ordering_form
+    - active_loop: ordering_form
+    - slot_was_set:
+      - book: "The Bell Jar"
+    - slot_was_set:
+      - user_email: maximilianmayer@gmx.com
+    - slot_was_set:
+      - person: Maximilian Mayer
+    - slot_was_set:
+      - user_street: Huppweg 13
+    - slot_was_set:
+      - user_plz: 69115
+    - slot_was_set:
+      - user_city: Heidelberg
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_slots_values
+    - action: utter_confirmation
+    - user: |
+        Das ist richtig. 
+      intent: affirm
+    - action: action_order
+
+- story: order book
+  steps: 
+  - user: |
+      Ich möchte gerne ein Buch bestellen
+    intent: order
+  - action: utter_fill_form
+  - action: ordering_form
+  - active_loop: ordering_form
+  - slot_was_set:
+    - book: "Howl and Other Poems"
+  - slot_was_set:
+    - user_email: HannahE@web.de
+  - slot_was_set:
+    - person: Hannah Eberhardt
+  - slot_was_set:
+    - user_street: Rutschgestraße 65
+  - slot_was_set:
+    - user_plz: 72622
+  - slot_was_set:
+    - user_city: Stuttgart
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_slots_values
+  - action: utter_confirmation
+  - user: |
+      richtig
+    intent: affirm
+  - action: action_order
