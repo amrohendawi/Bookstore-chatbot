@@ -23,7 +23,7 @@ Project structure
 
 ## simply clone project and run
 ```
-git clone https://git.tu-berlin.de/amro.hendawi/awt-pj-ws21-22-chatbot-semantics-2.git
+git clone https://github.com/amrohendawi/Bookstore-chatbot.git
 
 docker-compose up
 ```
