@@ -4,4 +4,5 @@
 results
 .cache/
 .bash_history
-actions/__pycache__/
+
+**/.pyc

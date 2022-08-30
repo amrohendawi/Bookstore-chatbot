@@ -1,5 +1,16 @@
 **E-Bookstore**
 
+This is a simple e-bookstore with a chatbot that provides multiple services.
+
+## Demo
+
+Ordering a book through the chatbot.
+![order book demo](screenshots/demo.gif)
+
+
+Reviewing order history.
+![order history demo](screenshots/order_history_demo.gif)
+
 This project uses the following technologies:
 
 1. Vue.js (bookstore frontend)
@@ -15,10 +26,9 @@ This project uses the following technologies:
     https://www.npmjs.com/package/rasa-webchat
 
 
-
 Project structure
 
-![Screenshot](images/docker-compose.drawio.png)
+![Screenshot](screenshots/docker-compose.drawio.png)
 
 
 ## simply clone project and run
@@ -30,12 +40,12 @@ docker-compose up
 
 The bookstore frontend at http://localhost:8080
 
-![Screenshot](images/e-bookstore.png)
+![Screenshot](screenshots/e-bookstore.png)
 
 
 The API docs at http://localhost:8000/docs
 
-![Screenshot](images/api-doc.png)
+![Screenshot](screenshots/api-doc.png)
 
 
 NginX proxy-forwards traffic from port 8001 to 8000

@@ -3,3 +3,4 @@ database
 .DS_Store
 /dist
 **/__pycache
+__pycache__/
