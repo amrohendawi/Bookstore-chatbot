@@ -19,6 +19,10 @@ This project uses the following technologies:
 4. swagger-ui (API docs)
 5. MongoDB (Database => Persistent storage)
 6. docker-compose (containerizing services)
+7. Rasa (chatbot framework)
+8. Rasa NLU (NLU engine fine-tuned for e-bookstore)
+9. SpaCy (Language model fine-tuned for e-bookstore)
+10. Prodigy (Data annotation tool)
 
 **Important plugins**
 
