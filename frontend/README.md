@@ -2,8 +2,8 @@
 
 > An E-Bookstore Web App made with bootstrap 4.2
 > and Vue/Vuex/Vue-router.
-
-
+> Node version: 15.6
+ 
 ## Development/Producation Setup
 
 ``` bash

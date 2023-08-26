@@ -3,7 +3,7 @@
     <div class="container-fluid py-4">
       <div class="row d-flex">
         <div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-12 order-sm-0 order-12">
-          <img class="img-fluid" src="@/assets/con.jpg" />
+          <img class="img-fluid" src="@/assets/co_.jpg" />
         </div>
         <div class="col-12 col-xl-8 col-lg-8 col-md-8 col-sm-12 order-first order-xl-0">
           <h1>Order history</h1>
